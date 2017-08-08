@@ -39,6 +39,21 @@ func Confirm(prompt string, args ...interface{}) bool {
 	}
 }
 
+// Just like Confirm(), but returns def if input is empty
+func ConfirmWithDefault(prompt string, def bool, args ...interface{}) bool {
+	// Duplicating code for the sake of readability
+	for {
+		switch String(prompt, args...) {
+		case "Yes", "yes", "y", "Y":
+			return true
+		case "No", "no", "n", "N":
+			return false
+		case "":
+			return def
+		}
+	}
+}
+
 // Choose prompts for a single selection from `list`, returning in the index.
 func Choose(prompt string, list []string) int {
 	fmt.Println()
