@@ -27,6 +27,18 @@ func StringRequired(prompt string, args ...interface{}) (s string) {
 	return s
 }
 
+// StringWithDefault prompt with default
+func StringWithDefault(prompt, def string, args ...interface{}) string {
+	fmt.Printf(prompt+": ", args...)
+	reader := bufio.NewReader(os.Stdin)
+	bytes, _, _ := reader.ReadLine()
+	if len(bytes) == 0 {
+		return def
+	} else {
+		return string(bytes)
+	}
+}
+
 // Confirm continues prompting until the input is boolean-ish.
 func Confirm(prompt string, args ...interface{}) bool {
 	for {
@@ -39,7 +51,7 @@ func Confirm(prompt string, args ...interface{}) bool {
 	}
 }
 
-// Just like Confirm(), but returns def if input is empty
+// ConfirmWithDefault has the same behavior as Confirm, but returns def if input is empty
 func ConfirmWithDefault(prompt string, def bool, args ...interface{}) bool {
 	// Duplicating code for the sake of readability
 	for {
